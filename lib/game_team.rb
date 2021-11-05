@@ -16,7 +16,7 @@ class GameTeam
     @head_coach = row['head_coach']
     @goals = row['goals'].to_i
     @shots = row['shots'].to_i
-    @tackles = row['tackles']
+    @tackles = row['tackles'].to_i
     @pim = row['pim'].to_i
     @powerPlayOpportunities = row['powerPlayOpportunities'].to_i
     @powerPlayGoals = row['powerPlayGoals'].to_i

@@ -1,13 +1,17 @@
 require 'csv'
 require 'pry'
-require './lib/game'
-require './lib/team'
-require './lib/game_team'
 
-require './lib/season_methods'
+require_relative './game'
+require_relative './team'
+require_relative './game_team'
+
+require_relative './season_methods'
+require_relative './teams_methods'
 
 class StatTracker
   include SeasonMethods
+  include Teams_Methods
+
 
   attr_reader :games, :teams, :game_teams
 
@@ -43,13 +47,7 @@ class StatTracker
     end
   end
 
-
 end
-
-
-
-
-
 
 StatTracker.from_csv({ games: './data/games.csv',
                        teams: './data/teams.csv',
