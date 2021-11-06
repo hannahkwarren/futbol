@@ -13,16 +13,14 @@ module GameMethods
     total_score.max
   end
 
-  def percentage_home_wins(game_teams)
-    game_teams.find_all do |game|
-      game.HoA == 'home' && game.result == 'WIN'
-      require 'pry'
-      binding.pry
-    end
+  def percentage_home_wins(_game_teams)
+    home_wins.count.to_f
   end
 
-  def home_game
-    game_team
+  def home_wins
+    game_teams.find_all do |game|
+      game.HoA == 'home' && game.result == 'WIN'
+    end
   end
   # def won?
   #   home_goals > away_goals
