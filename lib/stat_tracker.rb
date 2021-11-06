@@ -6,11 +6,13 @@ require_relative './team'
 require_relative './season_methods'
 require_relative './teams_methods'
 require_relative './league_methods'
+require_relative './game_methods'
 
 class StatTracker
   include SeasonMethods
   include Teams_Methods
   include LeagueMethods
+  include GameMethods
 
   attr_reader :games, :teams, :game_teams
 
@@ -45,7 +47,6 @@ class StatTracker
       @game_teams << GameTeam.new(row)
     end
   end
-
 end
 
 StatTracker.from_csv({ games: './data/games.csv',
