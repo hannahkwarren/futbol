@@ -22,6 +22,16 @@ RSpec.describe StatTracker do
     expect(@stat_tracker).to be_an_instance_of(StatTracker)
   end
 
+  it '#games_in_season' do
+    games_in_season = @stat_tracker.games_in_season"20122013"
+    count = games_in_season.length
+    expect(count).to eq(38)
+  end
+
+  it '#return_team_name' do
+    expect(@stat_tracker.return_team_name(6)).to eq("FC Dallas")
+  end
+
   it '#winningest_coach' do
     expect(@stat_tracker.winningest_coach("20122013")).to eq("Joel Quenneville")
   end
