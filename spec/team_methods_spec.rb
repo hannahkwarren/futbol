@@ -26,14 +26,6 @@ RSpec.describe StatTracker do
       })
   end
 
-  it '#best_season' do
-    expect(@stat_tracker.best_season(6)).to eq('20142015')
-  end
-
-  it '#worst_season' do
-    expect(@stat_tracker.worst_season(6)).to eq('20172018')
-  end
-
   it '#average_win_percentage' do
     expect(@stat_tracker.average_win_percentage(17)).to eq(57.14)
   end

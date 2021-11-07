@@ -16,95 +16,6 @@ module Teams_Methods
     team_info
   end
 
-  def best_season(team_id)
-    team_games = @games.select do |game|
-      game.away_team_id == team_id || game.home_team_id == team_id
-    end
-
-    wins = []
-    loss_or_tie = []
-    team_games.each do |game|
-      if game.home_goals > game.away_goals
-        wins << game
-      else
-        loss_or_tie << game
-      end
-    end
-
-    season_wins = {}
-    wins.each do |game|
-      if !season_wins.keys.include?(game.season)
-        season_wins[game.season] = 1 #and/or operator? From IC Review
-      elsif season_wins.keys.include?(game.season)
-        season_wins[game.season] += 1
-      end
-    end
-
-    season_loss_or_tie = {}
-    loss_or_tie.each do |game|
-      if !season_loss_or_tie.keys.include?(game.season)
-        season_loss_or_tie[game.season] = 1
-      elsif season_loss_or_tie.keys.include?(game.season)
-        season_loss_or_tie[game.season] += 1
-      end
-    end
-
-    winning_seasons = {}
-    season_wins.each_pair do |season, count|
-      if count > season_loss_or_tie[season]
-        winning_seasons[season] = (count.to_f / season_loss_or_tie[season].to_f)
-      end
-    end
-
-    top_season = winning_seasons.max_by { |season, ratio| ratio }
-    top_season = top_season.first.to_s
-  end
-
-  def worst_season(team_id)
-    team_games = @games.select do |game|
-      game.away_team_id == team_id || game.home_team_id == team_id
-    end
-
-    wins = []
-    loss_or_tie = []
-    team_games.each do |game|
-      if game.home_goals > game.away_goals
-        wins << game
-      else
-        loss_or_tie << game
-      end
-    end
-
-    season_wins = {}
-    wins.each do |game|
-      if !season_wins.keys.include?(game.season)
-        season_wins[game.season] = 1 #and/or operator? From IC Review
-      elsif season_wins.keys.include?(game.season)
-        season_wins[game.season] += 1
-      end
-    end
-
-    season_loss_or_tie = {}
-    loss_or_tie.each do |game|
-      if !season_loss_or_tie.keys.include?(game.season)
-        season_loss_or_tie[game.season] = 1
-      elsif season_loss_or_tie.keys.include?(game.season)
-        season_loss_or_tie[game.season] += 1
-      end
-    end
-
-    losing_seasons = {}
-    season_loss_or_tie.each_pair do |season, count|
-      if count <= season_wins[season]
-        losing_seasons[season] = (count.to_f / season_wins[season].to_f)
-      end
-    end
-
-    worst_season = losing_seasons.max_by { |season, ratio| ratio }
-    worst_season = worst_season.first.to_s
-  end
-
-
   def average_win_percentage(team_id)
 
     wins = 0
@@ -132,4 +43,6 @@ module Teams_Methods
     percentage = percentage.round(2)
     percentage
   end
+
+
 end
