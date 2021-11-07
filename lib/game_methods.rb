@@ -5,35 +5,56 @@ module GameMethods
     end
   end
 
-  def lowest_total_score(_game)
+  def lowest_total_score
     total_score.min
   end
 
-  def highest_total_score(_game)
+  def highest_total_score
     total_score.max
   end
 
-  def percentage_home_wins(_game_teams)
-    home_wins.count.to_f
+  def percentage_home_wins
+    (home_wins.count.to_f / games.count * 100).round(3)
   end
 
   def home_wins
-    game_teams.find_all do |game|
-      game.HoA == 'home' && game.result == 'WIN'
+    games.find_all do |game|
+      game.home_goals > game.away_goals
     end
   end
 
   def visitor_wins
-    game_teams.find_all do |game|
-      game.HoA == 'away' && game.result == 'WIN'
+    games.find_all do |game|
+      game.home_goals < game.away_goals
     end
   end
 
-  def percentage_visitor_wins(_game_teams)
-    visitor_wins.count.to_f
+  def percentage_visitor_wins
+    (visitor_wins.count.to_f / games.count * 100).round(3)
   end
 
-  # def count_of_games_by_season; end
-  #
-  # def count_of_teams; end
+  def count_of_games_by_season
+    seasons = games.map do |game|
+      game.season
+    end.uniq!
+
+    output = {}
+    seasons.each do |season|
+      output[season] =
+        games.count do |game|
+          game.season == season
+        end
+    end
+    output
+  end
+
+  def tie
+    games.find_all do |game|
+      game.home_goals == game.away_goals
+    end
+  end
+
+  def percentage_ties
+    (tie.count.to_f / games.count * 100).round(3)
+  end
 end

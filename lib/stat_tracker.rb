@@ -37,12 +37,16 @@ class StatTracker
   end
 
   def make_teams(filenames)
+    return unless filenames[:teams]
+
     CSV.foreach(filenames[:teams], headers: true) do |row|
       @teams << Team.new(row)
     end
   end
 
   def make_game_teams(filenames)
+    return unless filenames[:game_teams]
+
     CSV.foreach(filenames[:game_teams], headers: true) do |row|
       @game_teams << GameTeam.new(row)
     end
