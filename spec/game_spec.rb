@@ -36,4 +36,12 @@ RSpec.describe StatTracker do
   it 'can return a percentage of games tied' do
     expect(@stat_tracker.percentage_ties).to eq(20.387)
   end
+
+  it 'can return the average goals of a game' do
+    expect(@stat_tracker.average_goals_per_game).to eq(1.0)
+  end
+
+  it 'can return the average goals of a game' do
+    expect(@stat_tracker.average_goals_by_season).to eq({{20122013=>1.0, 20162017=>1.0, 20142015=>1.0, 20152016=>1.0, 20132014=>1.0, 20172018=>1.0}})
+  end
 end

@@ -57,4 +57,27 @@ module GameMethods
   def percentage_ties
     (tie.count.to_f / games.count * 100).round(3)
   end
+
+  def average_goals_per_game
+    sums = games.map do |game|
+      game.away_goals + game.home_goals
+    end
+    (sums.count.to_f / games.count.to_f).round(3)
+  end
+
+  def average_goals_by_season
+    seasons = games.map do |game|
+      game.season
+    end.uniq!
+
+    output = {}
+    seasons.each do |season|
+      sums = games.map do |game|
+        game.away_goals + game.home_goals
+      end
+      output[season] =
+        (sums.count.to_f / games.count.to_f).round(3)
+    end
+    output
+  end
 end
