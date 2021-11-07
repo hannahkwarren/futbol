@@ -1,5 +1,6 @@
 require 'csv'
 require 'pry'
+
 require_relative './game_team'
 require_relative './game'
 require_relative './team'
@@ -7,6 +8,7 @@ require_relative './season_methods'
 require_relative './teams_methods'
 require_relative './league_methods'
 require_relative './game_methods'
+
 
 class StatTracker
   include SeasonMethods
