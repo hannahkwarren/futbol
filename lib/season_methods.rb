@@ -1,17 +1,5 @@
 module SeasonMethods
 
-  def all_coaches
-    coaches_array = []
-    @game_teams.each do |row|
-      if coaches_array.include?(row.head_coach) == false
-        coaches_array << row.head_coach
-      end
-    end
-    coaches_array
-  end
-
-
-  # update to accept season argument - only reference data for that seaso
 
   def winningest_coach(season)
 
@@ -43,9 +31,9 @@ module SeasonMethods
 
     coach_wins.each do |name, wins|
       coach_total_games[name] = coach_losses[name] + coach_wins[name]
-      coach_win_percentage[name] = coach_wins[name]/coach_total_games[name].to_f
+      coach_win_percentage[name] = coach_wins[name].to_f/coach_total_games[name].to_f
     end
-
+    # require "pry"; binding.pry
 
     return coach_win_percentage.max_by{|name, percentage| percentage}[0]
   end
@@ -63,9 +51,15 @@ module SeasonMethods
       end
     end
 
+    games_in_season.uniq
 
     coach_wins = Hash.new(0)
     coach_losses = Hash.new(0)
+
+    @game_teams.each do |row|
+      coach_wins[row.head_coach] = 0
+      coach_losses[row.head_coach] = 0
+    end
 
     @game_teams.each do |row|
       if row.result == "LOSS" && games_in_season.include?(row.game_id)
@@ -80,9 +74,11 @@ module SeasonMethods
     coach_total_games = Hash.new(0)
     coach_win_percentage = Hash.new(0)
 
-    coach_wins.each do |name, wins|
+    coach_losses.each do |name, wins|
       coach_total_games[name] = coach_losses[name] + coach_wins[name]
-      coach_win_percentage[name] = coach_wins[name].to_f/coach_total_games[name].to_f
+      if coach_total_games[name] != 0
+        coach_win_percentage[name] = coach_wins[name].to_f/coach_total_games[name].to_f
+      end
     end
 
     # require "pry"; binding.pry
@@ -186,6 +182,7 @@ module SeasonMethods
   end
 
   def most_tackles(season)
+    season = season.to_i
     games_in_season = []
 
     @games.each do |game|
@@ -194,7 +191,7 @@ module SeasonMethods
       end
     end
 
-    # require "pry"; binding.pry
+    games_in_season.uniq
 
     team_tackles = Hash.new(0)
 
@@ -214,11 +211,42 @@ module SeasonMethods
         team_name = team.teamName
       end
     end
+     # require "pry"; binding.pry
     return team_name
   end
 
   def fewest_tackles(season)
-    # basically the same as most tackles - maybe refactor this first
+    season = season.to_i
+    games_in_season = []
+
+    @games.each do |game|
+      if game.season == season
+        games_in_season << game.game_id
+      end
+    end
+
+    games_in_season.uniq
+
+    team_tackles = Hash.new(0)
+
+    @game_teams.each do |row|
+      if games_in_season.include?(row.game_id)
+        team_tackles[row.team_id] = team_tackles[row.team_id] + row.tackles
+      end
+    end
+
+    team_array = team_tackles.min_by{|team, tackles| tackles}
+    team_id = team_array[0]
+    team_name = ""
+
+    # can probably refactor this
+    @teams.each do|team|
+      if team.team_id == team_id
+        team_name = team.teamName
+      end
+    end
+     # require "pry"; binding.pry
+    return team_name
   end
 
 
