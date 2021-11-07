@@ -20,6 +20,7 @@ module Teams_Methods
     wins = 0
     loss_or_tie = 0
     rows = []
+
     @game_teams.each do |row|
       if row.team_id == team_id
         rows << row
