@@ -3,7 +3,6 @@ require './lib/futbol_data'
 require './lib/stat_tracker'
 require './lib/league'
 
-
 RSpec.describe League do
   before(:each) do
     @game_path = './data/games_test.csv'

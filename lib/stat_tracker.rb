@@ -6,19 +6,19 @@ require_relative './game_team'
 require_relative './game'
 require_relative './team'
 require_relative './season_methods'
-require_relative './teams_methods'
-require_relative './game_methods'
 require_relative './league'
+require_relative './team_child'
+require_relative './game_child'
 
 class StatTracker
   include SeasonMethods
-  include Teams_Methods
-  include GameMethods
 
   attr_reader :games, :teams, :game_teams
 
   def initialize(filenames)
     @league = League.new(filenames)
+    @game_child = GameChild.new(filenames)
+    @team_child = TeamChild.new(filenames)
   end
 
   def self.from_csv(filenames)
@@ -26,34 +26,70 @@ class StatTracker
     stat_tracker
   end
 
+  def highest_total_score
+    @game_child.highest_total_score
+  end
+
+  def lowest_total_score
+    @game_child.lowest_total_score
+  end
+
+  def percentage_home_wins
+    @game_child.percentage_home_wins
+  end
+
+  def percentage_visitor_wins
+    @game_child.percentage_visitor_wins
+  end
+
+  def count_of_games_by_season
+    @game_child.count_of_games_by_season
+  end
+
+  def tie
+    @game_child.tie
+  end
+
+  def percentage_ties
+    @game_child.percentage_ties
+  end
+
+  def average_goals_per_game
+    @game_child.average_goals_per_game
+  end
+
+  def average_goals_by_season
+    @game_child.average_goals_by_season
+  end
+
+  def team_info(team_id)
+    @team_child.team_info(team_id)
+  end
+
+  def average_win_percentage(team_id)
+    @team_child.average_win_percentage(team_id)
+  end
+
+  def most_goals_scored(team_id)
+    @team_child.most_goals_scored(team_id)
+  end
+
+  def fewest_goals_scored(team_id)
+    @team_child.fewest_goals_scored(team_id)
+  end
+
+  def favorite_opponent(team_id)
+    @team_child.favorite_opponent(team_id)
+  end
+
+  def rival(team_id)
+    @team_child.rival(team_id)
+  end
+
   def count_of_teams
     @league.count_of_teams
   end
 
-  def make_games(filenames)
-    return unless filenames[:games]
-
-    CSV.foreach(filenames[:games], headers: true) do |row|
-      @games << Game.new(row)
-    end
-  end
-  
-  def make_teams(filenames)
-    return unless filenames[:teams]
-
-    CSV.foreach(filenames[:teams], headers: true) do |row|
-      @teams << Team.new(row)
-    end
-  end
-
-  def make_game_teams(filenames)
-    return unless filenames[:game_teams]
-
-    CSV.foreach(filenames[:game_teams], headers: true) do |row|
-      @game_teams << GameTeam.new(row)
-    end
-  end
-  
   def calc_avg_goals_alltime(team_id, location)
     @league.calc_avg_goals_alltime(team_id, location)
   end

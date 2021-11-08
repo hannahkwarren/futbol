@@ -1,4 +1,10 @@
-module TeamMethods
+require_relative './futbol_data'
+
+class TeamChild < FutbolData
+
+  def initialize(filenames)
+    super(filenames)
+  end
 
   def choose_games(team_id, games)
     @games.each do |game|
