@@ -7,12 +7,13 @@ require_relative './game'
 require_relative './team'
 require_relative './season_methods'
 require_relative './teams_methods'
+require_relative './game_methods'
 require_relative './league'
-
 
 class StatTracker
   include SeasonMethods
   include Teams_Methods
+  include GameMethods
 
   attr_reader :games, :teams, :game_teams
 
@@ -29,6 +30,30 @@ class StatTracker
     @league.count_of_teams
   end
 
+  def make_games(filenames)
+    return unless filenames[:games]
+
+    CSV.foreach(filenames[:games], headers: true) do |row|
+      @games << Game.new(row)
+    end
+  end
+  
+  def make_teams(filenames)
+    return unless filenames[:teams]
+
+    CSV.foreach(filenames[:teams], headers: true) do |row|
+      @teams << Team.new(row)
+    end
+  end
+
+  def make_game_teams(filenames)
+    return unless filenames[:game_teams]
+
+    CSV.foreach(filenames[:game_teams], headers: true) do |row|
+      @game_teams << GameTeam.new(row)
+    end
+  end
+  
   def calc_avg_goals_alltime(team_id, location)
     @league.calc_avg_goals_alltime(team_id, location)
   end
@@ -59,7 +84,6 @@ class StatTracker
   def lowest_scoring_home_team
     @league.lowest_scoring_home_team
   end
-
 end
 
 StatTracker.from_csv({ games: './data/games.csv',

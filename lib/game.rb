@@ -18,30 +18,4 @@ class Game
     @venue = row['venue']
     @venue_link = row['venue_link']
   end
-
-  def self.lowest_total_score(games)
-    game = games.min_by { |game| game.total_score }
-    game.total_score
-  end
-
-  def self.highest_total_score(games)
-    game = games.max_by { |game| game.total_score }
-    game.total_score
-  end
-
-  def total_score
-    home_goals + away_goals
-  end
-
-  def won?
-    home_goals > away_goals
-  end
-
-  def count_of_games_by_season
-
-  end
-
-  def count_of_teams
-
-  end
 end
