@@ -1,13 +1,18 @@
 require_relative 'spec_helper'
+require './lib/game_child'
+require './lib/futbol_data'
 require './lib/stat_tracker'
 
 RSpec.describe StatTracker do
   before(:each) do
     @game_path = './data/games.csv'
+    @team_path = './data/teams.csv'
+    @game_teams_path = './data/game_teams.csv'
 
     @filenames = {
-      games: @game_path
-
+      games: @game_path,
+      teams: @team_path,
+      game_teams: @game_teams_path
     }
     @stat_tracker = StatTracker.from_csv(@filenames)
   end
@@ -16,7 +21,7 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.highest_total_score).to eq(11)
   end
 
-  it 'can return the highest_total_score' do
+  it 'can return the lowest_total_score' do
     expect(@stat_tracker.lowest_total_score).to eq(0)
   end
 
@@ -42,6 +47,6 @@ RSpec.describe StatTracker do
   end
 
   it 'can return the average goals of a game' do
-    expect(@stat_tracker.average_goals_by_season).to eq({{20122013=>1.0, 20162017=>1.0, 20142015=>1.0, 20152016=>1.0, 20132014=>1.0, 20172018=>1.0}})
+    expect(@stat_tracker.average_goals_by_season).to eq({20122013=>1.0, 20162017=>1.0, 20142015=>1.0, 20152016=>1.0, 20132014=>1.0, 20172018=>1.0})
   end
 end

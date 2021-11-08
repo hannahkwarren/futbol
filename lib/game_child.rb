@@ -1,6 +1,12 @@
-module GameMethods
+require_relative './futbol_data'
+class GameChild < FutbolData
+
+  def initialize(filenames)
+    super(filenames)
+  end
+
   def total_score
-    games.map do |game|
+    @games.map do |game|
       game.away_goals + game.home_goals
     end
   end
