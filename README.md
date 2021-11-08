@@ -19,7 +19,7 @@
 > spec_harness : https://github.com/turingschool-examples/futbol_spec_harness
 
 ## **Authors**
-* github hannahkwarren
+* github hannahkwarren (https://github.com/hannahkwarren)
 * github samivari
 * github croixk
 * github dylan-harper
