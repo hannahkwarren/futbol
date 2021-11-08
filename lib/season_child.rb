@@ -1,4 +1,10 @@
-module SeasonMethods
+require_relative './futbol_data'
+
+class SeasonChild < FutbolData
+
+  def initialize(filenames)
+    super(filenames)
+  end
 
   def games_in_season(season)
     season = season.to_i
@@ -18,7 +24,7 @@ module SeasonMethods
       team.team_id == team_id
     end
 
-    return return_team.teamName
+    return return_team.team_name
   end
 
 

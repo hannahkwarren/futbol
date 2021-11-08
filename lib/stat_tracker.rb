@@ -5,20 +5,18 @@ require_relative './futbol_data'
 require_relative './game_team'
 require_relative './game'
 require_relative './team'
-require_relative './season_methods'
 require_relative './league'
 require_relative './team_child'
 require_relative './game_child'
+require_relative './season_child'
 
 class StatTracker
-  include SeasonMethods
-
-  attr_reader :games, :teams, :game_teams
 
   def initialize(filenames)
     @league = League.new(filenames)
     @game_child = GameChild.new(filenames)
     @team_child = TeamChild.new(filenames)
+    @season_child = SeasonChild.new(filenames)
   end
 
   def self.from_csv(filenames)
@@ -120,6 +118,32 @@ class StatTracker
   def lowest_scoring_home_team
     @league.lowest_scoring_home_team
   end
+
+  def winningest_coach(season)
+    @season_child.winningest_coach(season)
+  end
+
+  def worst_coach(season)
+    @season_child.worst_coach(season)
+  end
+
+  def most_accurate_team(season)
+    @season_child.most_accurate_team(season)
+  end
+
+  def least_accurate_team(season)
+    @season_child.least_accurate_team(season)
+  end
+
+  def most_tackles(season)
+    @season_child.most_tackles(season)
+  end
+
+  def fewest_tackles(season)
+    @season_child.fewest_tackles(season)
+  end
+
+
 end
 
 StatTracker.from_csv({ games: './data/games.csv',
