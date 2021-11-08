@@ -10,13 +10,13 @@
 ## **Built With**
 > We used the following tools for this project:
 * Ruby (v. 2.7.2)
-* SimpleCov (https://github.com/simplecov-ruby/simplecov)
+* [SimpleCov](https://github.com/simplecov-ruby/simplecov)
 
 ## **Testing**
 > We used Rspec and Test-Driven Development to create methods that analyze certain statistics.
 > We used the futbol_spec_harness provided by Turing to assess project completion.
 > 
-> spec_harness : https://github.com/turingschool-examples/futbol_spec_harness
+> [futbol_spec_harness](https://github.com/turingschool-examples/futbol_spec_harness)
 
 ## **Authors**
 * github [hannahkwarren](https://github.com/hannahkwarren)
