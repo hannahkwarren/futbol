@@ -17,19 +17,8 @@ class League < FutbolData
       # if location IS set, only aggregate the goals for that location, home vs. away
     goals = []
     @game_teams.each do |game_team|
-      if location == nil
-        if game_team.team_id == team_id
-          goals << game_team.goals
-        end
-      elsif location == "home"
-        if game_team.team_id == team_id && game_team.HoA == "home"
-          goals << game_team.goals
-          # require "pry"; binding.pry
-        end
-      elsif location == "away"
-        if game_team.team_id == team_id && game_team.HoA == "away"
-          goals << game_team.goals
-        end
+      if (location == nil || game_team.HoA == location) && game_team.team_id == team_id
+        goals << game_team.goals
       end
     end
     sum = goals.sum.to_f
