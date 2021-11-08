@@ -20,6 +20,6 @@
 
 ## **Authors**
 * github [hannahkwarren](https://github.com/hannahkwarren)
-* github samivari
-* github croixk
-* github dylan-harper
+* github [samivari](https://github.com/samivari)
+* github [croixk](https://github.com/croixk)
+* github [dylan-harper](https://github.com/dylan-harper)
