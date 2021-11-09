@@ -1,6 +1,6 @@
 require_relative './futbol_data'
 
-class League < FutbolData
+class LeagueChild < FutbolData
 
   def initialize(filenames)
     super(filenames)
@@ -34,7 +34,7 @@ class League < FutbolData
       averages << [team, self.calc_avg_goals_alltime(team.team_id, location)]
     end
     max = averages.max {|a, b| a[1] <=> b[1]}
-    max[0].teamName
+    max[0].team_name
   end
 
   # lowest scorer, with optional location representing away or home
@@ -44,7 +44,7 @@ class League < FutbolData
       averages << [team, self.calc_avg_goals_alltime(team.team_id, location)]
     end
     min = averages.min {|a, b| a[1] <=> b[1]}
-    min[0].teamName
+    min[0].team_name
   end
 
   # team with highest average score per game, all-time, when playing away

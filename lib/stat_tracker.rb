@@ -5,7 +5,7 @@ require_relative './futbol_data'
 require_relative './game_team'
 require_relative './game'
 require_relative './team'
-require_relative './league'
+require_relative './league_child'
 require_relative './team_child'
 require_relative './game_child'
 require_relative './season_child'
@@ -13,7 +13,7 @@ require_relative './season_child'
 class StatTracker
 
   def initialize(filenames)
-    @league = League.new(filenames)
+    @league = LeagueChild.new(filenames)
     @game_child = GameChild.new(filenames)
     @team_child = TeamChild.new(filenames)
     @season_child = SeasonChild.new(filenames)
@@ -86,10 +86,6 @@ class StatTracker
 
   def count_of_teams
     @league.count_of_teams
-  end
-
-  def calc_avg_goals_alltime(team_id, location)
-    @league.calc_avg_goals_alltime(team_id, location)
   end
 
   def best_offense
