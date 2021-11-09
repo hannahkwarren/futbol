@@ -64,15 +64,6 @@ class StatTracker
     @team_child.team_info(team_id)
   end
 
-  def best_season(team_id)
-    @team_child.best_season(team_id)
-  end
-
-  def worst_season(team_id)
-    @team_child.worst_season(team_id)
-  end
-
-
   def average_win_percentage(team_id)
     @team_child.average_win_percentage(team_id)
   end
@@ -93,8 +84,20 @@ class StatTracker
     @team_child.rival(team_id)
   end
 
+  def best_season(team_id)
+    @team_child.best_season(team_id)
+  end
+
+  def worst_season(team_id)
+    @team_child.worst_season(team_id)
+  end
+
   def count_of_teams
     @league.count_of_teams
+  end
+
+  def calc_avg_goals_alltime(team_id, location)
+    @league.calc_avg_goals_alltime(team_id, location)
   end
 
   def best_offense
