@@ -1,6 +1,5 @@
 require_relative './futbol_data'
 class GameChild < FutbolData
-
   def initialize(filenames)
     super(filenames)
   end
@@ -20,7 +19,7 @@ class GameChild < FutbolData
   end
 
   def percentage_home_wins
-    (home_wins.count.to_f / games.count * 100).round(3)
+    (home_wins.count.to_f / games.count).round(2)
   end
 
   def home_wins
@@ -36,7 +35,7 @@ class GameChild < FutbolData
   end
 
   def percentage_visitor_wins
-    (visitor_wins.count.to_f / games.count * 100).round(3)
+    (visitor_wins.count.to_f / games.count).round(2)
   end
 
   def count_of_games_by_season

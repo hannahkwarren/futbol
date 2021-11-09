@@ -15,6 +15,7 @@ RSpec.describe StatTracker do
       game_teams: @game_teams_path
     }
     @stat_tracker = StatTracker.from_csv(@filenames)
+    @game_child = GameChild.new(@filenames)
   end
 
   it 'can return the highest_total_score' do
@@ -26,11 +27,11 @@ RSpec.describe StatTracker do
   end
 
   it 'can return a percentage of home team wins' do
-    expect(@stat_tracker.percentage_home_wins).to eq(43.502)
+    expect(@stat_tracker.percentage_home_wins).to eq(0.44)
   end
 
   it 'can return a percentage of visitor team wins' do
-    expect(@stat_tracker.percentage_visitor_wins).to eq(36.111)
+    expect(@stat_tracker.percentage_visitor_wins).to eq(0.36)
   end
 
   it 'can return a count of games by season' do
@@ -47,6 +48,23 @@ RSpec.describe StatTracker do
   end
 
   it 'can return the average goals of a game' do
-    expect(@stat_tracker.average_goals_by_season).to eq({20122013=>1.0, 20162017=>1.0, 20142015=>1.0, 20152016=>1.0, 20132014=>1.0, 20172018=>1.0})
+    expect(@stat_tracker.average_goals_by_season).to eq({ 20_122_013 => 1.0, 20_162_017 => 1.0, 20_142_015 => 1.0, 20_152_016 => 1.0,
+                                                          20_132_014 => 1.0, 20_172_018 => 1.0 })
+  end
+
+  it 'can give back a total score' do
+    expect(@game_child.total_score.first(10)).to eq([5, 5, 3, 5, 4, 3, 5, 3, 1, 3])
+  end
+
+  it 'determines if it is a home win' do
+    expect(@game_child.home_wins[0].game_id).to eq(2_012_030_221)
+  end
+
+  it 'determines if it is a visitor win' do
+    expect(@game_child.visitor_wins[0].game_id).to eq(2_012_030_223)
+  end
+
+  it 'shows what games had a tie' do
+    expect(@game_child.tie[0].game_id).to eq(2_012_030_121)
   end
 end
