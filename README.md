@@ -1,10 +1,10 @@
-# **Futbol**
+# **Futbol** 
 
 
 ## **About**
 > We are a four-person group collaborating on the Futbol project in Mod1 at Turing.
 > The collaborators are Hannah Warren, Sam Ivari, Croix Kimmel and Dylan Harper.
-> In the Futbol project, we are given sports data contained in CSV files.
+> In the Futbol project, we are given artificial sports data contained in CSV files.
 > With this CSV data, we used Object-Oriented Programming to determine Game, Team, Season, and League statistics.
 
 ## **Built With**
