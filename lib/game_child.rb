@@ -1,6 +1,5 @@
 require_relative './futbol_data'
 class GameChild < FutbolData
-
   def initialize(filenames)
     super(filenames)
   end
