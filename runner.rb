@@ -13,17 +13,3 @@
  }
 
 stat_tracker = StatTracker.from_csv(filenames)
-
-
-puts stat_tracker.worst_coach("20122013")
-
-
-
-
-
-
-##### NEED TO FIX
-# if a coach is winless - won't return for worst coach
-# correct for ties - can lump in with losses
-
-# return team names - not team id
