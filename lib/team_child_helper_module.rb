@@ -1,28 +1,30 @@
 module TeamChildHelper
-  
+
   def choose_games(team_id, games)
     @games.each do |game|
       if game.away_team_id.to_s == team_id || game.home_team_id.to_s == team_id
         games << game
       end
     end
+    games
   end
 
   def choose_game_teams(team_id, game_teams)
     @game_teams.each do |row|
-      if row.team_id == team_id.to_i
+      if row.team_id.to_s == team_id
         game_teams << row
       end
     end
+    game_teams
   end
 
   def separate_wins_loss_tie(wins, loss, tie, game_teams)
     game_teams.each do |row|
-      if row.result == 'WIN'
+      if row.result == "WIN"
         wins << row
-      elsif row.result == 'LOSS'
+      elsif row.result == "LOSS"
         loss << row
-      elsif row.result == 'TIE'
+      elsif row.result == "TIE"
         tie << row
       end
     end
