@@ -20,7 +20,7 @@ class GameChild < FutbolData
   end
 
   def percentage_home_wins
-    (home_wins.count.to_f / games.count * 100).round(3)
+    (home_wins.count.to_f / games.count).round(2)
   end
 
   def home_wins
@@ -36,7 +36,7 @@ class GameChild < FutbolData
   end
 
   def percentage_visitor_wins
-    (visitor_wins.count.to_f / games.count * 100).round(3)
+    (visitor_wins.count.to_f / games.count).round(2)
   end
 
   def count_of_games_by_season
@@ -46,7 +46,7 @@ class GameChild < FutbolData
 
     output = {}
     seasons.each do |season|
-      output[season] =
+      output[season.to_s] =
         games.count do |game|
           game.season == season
         end
@@ -61,14 +61,12 @@ class GameChild < FutbolData
   end
 
   def percentage_ties
-    (tie.count.to_f / games.count * 100).round(3)
+    (tie.count.to_f / games.count).round(2)
   end
 
   def average_goals_per_game
-    sums = games.map do |game|
-      game.away_goals + game.home_goals
-    end
-    (sums.count.to_f / games.count.to_f).round(3)
+    total = total_score.sum
+    (total / games.count.to_f).round(2)
   end
 
   def average_goals_by_season
@@ -78,11 +76,16 @@ class GameChild < FutbolData
 
     output = {}
     seasons.each do |season|
-      sums = games.map do |game|
-        game.away_goals + game.home_goals
+      sums = []
+      games.each do |game|
+        if game.season == season
+        sums << (game.away_goals + game.home_goals)
+        end
       end
-      output[season] =
-        (sums.count.to_f / games.count.to_f).round(3)
+
+      total = sums.sum
+      output[season.to_s] =
+        (total.to_f / sums.count.to_f).round(2)
     end
     output
   end
