@@ -1,11 +1,11 @@
 require_relative 'spec_helper'
 require './lib/futbol_data'
 require './lib/stat_tracker'
-require './lib/league'
+require './lib/league_child'
 
-RSpec.describe League do
+RSpec.describe LeagueChild do
   before(:each) do
-    @game_path = './data/games_test.csv'
+    @game_path = './data/games.csv'
     @team_path = './data/teams.csv'
     @game_teams_path = './data/game_teams.csv'
 
@@ -15,6 +15,7 @@ RSpec.describe League do
       game_teams: @game_teams_path
     }
     @stat_tracker = StatTracker.from_csv(@filenames)
+    @league_child = LeagueChild.new(@filenames)
   end
 
   it 'can return count of teams' do
@@ -22,7 +23,7 @@ RSpec.describe League do
   end
 
   it 'can #calc_average_goals_alltime' do
-    expect(@stat_tracker.calc_avg_goals_alltime(4, nil)).to eq(2.0377358490566038)
+    expect(@league_child.calc_avg_goals_alltime(4, nil)).to eq(2.0377358490566038)
   end
 
   it 'can return team name of team with the best offense' do
@@ -34,8 +35,8 @@ RSpec.describe League do
   end
 
   it 'can return the average all-time goals when playing away or home' do
-    expect(@stat_tracker.calc_avg_goals_alltime(6, "home")).to eq(2.280155642023346)
-    expect(@stat_tracker.calc_avg_goals_alltime(54, "away")).to eq(2.0980392156862746)
+    expect(@league_child.calc_avg_goals_alltime(6, "home")).to eq(2.280155642023346)
+    expect(@league_child.calc_avg_goals_alltime(54, "away")).to eq(2.0980392156862746)
   end
 
   it 'can return team name of team with highest all-time average score when playing away' do
